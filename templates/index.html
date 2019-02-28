@@ -1,0 +1,37 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#</body>#}
+{#</html>#}
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="file">
+    <button type="submit">Submit</button>
+  </form>
+
+  {% if url %}
+    <p>File: <a href="{{ url }}">{{ url }}</a></p>
+  {% endif %}
+  {% if upload_number %}
+    <p>File was uploaded {{upload_number}} times</p>
+  {% endif %}
+  {% if sha256 %}
+    <p>File sha256_checksum = {{sha256}} </p>
+  {% endif %}
+  {% if md5 %}
+    <p>File md5_checksum = {{md5}} </p>
+  {% endif %}
+  <p>{{ form.fieldname.errors.as_text }}</p>
+
+{#  <p><a href="{% url 'home' %}">Return to home</a></p>#}
+{% endblock %}
